@@ -3,7 +3,6 @@ import { deleteCookie, setCookie } from "cookies-next";
 
 export default class TokenService {
   static setTokens(tokens: TokensType) {
-    console.log(123, tokens);
     const now = Math.floor(Date.now() / 1000);
     setCookie("access_token", tokens.access_token, {
       path: "/",

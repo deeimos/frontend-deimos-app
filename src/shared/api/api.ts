@@ -3,12 +3,18 @@ import { getCookie } from "cookies-next";
 import AuthService from "./services/auth.service";
 import TokenService from "./services/token.service";
 
+
 export const api = axios.create({
   baseURL: "/api",
   withCredentials: true,
 });
 
-api.interceptors.request.use((config) => {
+export const backendApi = axios.create({
+  baseURL: "/backend-api",
+  withCredentials: true,
+});
+
+backendApi.interceptors.request.use((config) => {
   if (!config.headers.Authorization && typeof window !== "undefined") {
     const token = getCookie("access_token");
     if (token) {
@@ -18,7 +24,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.response.use(
+backendApi.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -36,7 +42,7 @@ api.interceptors.response.use(
         TokenService.setTokens(data);
 
         originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
-        return api.request(originalRequest);
+        return backendApi.request(originalRequest);
       } catch (e) {
         TokenService.removeTokens();
         console.error("Ошибка при обновлении токена:", e);
