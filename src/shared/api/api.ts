@@ -37,8 +37,6 @@ backendApi.interceptors.response.use(
         if (!refreshToken) throw new Error("No refresh token");
 
         const { data } = await AuthService.Refresh(refreshToken);
-
-        console.log("new tokens", data)
         TokenService.setTokens(data);
 
         originalRequest.headers.Authorization = `Bearer ${data.access_token}`;

@@ -1,5 +1,5 @@
 import forge from "node-forge";
-import { getPublicKey, getPrivateKey } from "./readKey";
+import { getPublicKey } from "./readKey";
 
 export function encryptFields(data: { ip: string; port: string; display_name: string }) {
   const key = getPublicKey();

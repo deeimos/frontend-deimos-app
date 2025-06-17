@@ -14,18 +14,21 @@ import {
   LinkBox,
   LinkOverlay,
   Status,
+  useDisclosure
 } from "@chakra-ui/react";
 import { useServersQuery } from "@/shared/hooks/servers/useServersListQuery";
+import AddEditModal from "@/entities/server/AddEditModal";
 import NextLink from "next/link";
 
 export default function ServersPage() {
+  const { open, onOpen, onClose } = useDisclosure()
   const { data: servers, isLoading } = useServersQuery();
 
   return (
     <Box maxW="6xl" mx="auto" py={8} px={4}>
       <Box mb={6} display="flex" justifyContent="space-between">
         <Heading >Список серверов</Heading>
-        <Button>Добавить</Button>
+        <Button onClick={onOpen}>Добавить</Button>
       </Box>
       <Stack spaceY={4}>
         {isLoading
@@ -73,6 +76,7 @@ export default function ServersPage() {
               </LinkBox>
             ))}
       </Stack>
+      <AddEditModal isOpen={open} onClose={onClose} />
     </Box>
   );
 }

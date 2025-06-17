@@ -13,11 +13,12 @@ import { validateForm } from "@/shared/utils/validateForm";
 interface ILoginForm {
   callbackUrl: string;
 }
-export const LoginForm = ({callbackUrl}: ILoginForm) => {
+export const LoginForm = ({ callbackUrl }: ILoginForm) => {
   const {
     register,
     handleSubmit,
     setError,
+    clearErrors,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
@@ -35,18 +36,33 @@ export const LoginForm = ({callbackUrl}: ILoginForm) => {
   };
 
   return (
-    <Box maxW="md" mx="auto" mt={16} p={6} borderWidth="1px" borderRadius="lg">
+    <Box w="100%" mx="auto" mt={16} p={6} borderWidth="1px" borderRadius="lg">
       <Heading mb={6} size="lg" textAlign="center">
         Вход в систему
       </Heading>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Stack>
           <Field label="Email" error={errors.email?.message} isInvalid={!!errors.email}>
-            <Input type="email" placeholder="email@example.com" {...register("email")} />
+            <Input
+              type="email"
+              placeholder="email@example.com"
+              {...register("email")}
+              onChange={(e) => {
+                clearErrors(["email", "password"]);
+                register("email").onChange(e);
+              }}
+            />
           </Field>
 
           <Field label="Пароль" error={errors.password?.message} isInvalid={!!errors.password}>
-            <PasswordInput type="password" {...register("password")} />
+            <PasswordInput
+              type="password"
+              {...register("password")}
+              onChange={(e) => {
+                clearErrors(["email", "password"]);
+                register("password").onChange(e);
+              }}
+            />
           </Field>
 
           <Button type="submit" colorScheme="blue" loading={isSubmitting}>

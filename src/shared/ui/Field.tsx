@@ -10,14 +10,18 @@ type FieldProps = {
   children: ReactNode;
 };
 
-export const Field = ({ label, error, isInvalid, children }: FieldProps) => (
-  <FormControl isInvalid={isInvalid} mb={4}>
-    <FormLabel fontSize="medium">{label}</FormLabel>
-    {children}
-    {isInvalid && (
-      <FormErrorMessage fontSize="small" color="red">
-        {error}
-      </FormErrorMessage>
-    )}
-  </FormControl>
-);
+export const Field = ({ label, error, isInvalid, children }: FieldProps) => {
+  return (
+    <FormControl isInvalid={isInvalid} mb={4}>
+      <FormLabel fontSize="medium" mb={2}>
+        {label}
+      </FormLabel>
+      {children}
+      {isInvalid && (
+        <FormErrorMessage fontSize="small" color="red">
+          {error}
+        </FormErrorMessage>
+      )}
+    </FormControl>
+  );
+};
