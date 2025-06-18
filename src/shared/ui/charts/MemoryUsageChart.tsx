@@ -4,9 +4,9 @@ import { ServerMetricModel } from "@/shared/types/server.type";
 export const MemoryUsageChart = ({ data }: { data: ServerMetricModel[] }) => (
   <ResponsiveContainer height={200}>
     <AreaChart data={data}>
-      <XAxis dataKey="timestamp" tickFormatter={(t) => new Date(t).toLocaleTimeString()} />
+      <XAxis dataKey="timestampObj" tickFormatter={(d) => d.toLocaleTimeString()} />
       <YAxis domain={[0, 100]} unit="%" />
-      <Tooltip labelFormatter={(t) => new Date(t).toLocaleString()} />
+      <Tooltip labelFormatter={(d) => d.toLocaleString()} />
       <Area
         type="monotone"
         dataKey={(metric) => (metric.memory_usage * 100).toFixed(2)}

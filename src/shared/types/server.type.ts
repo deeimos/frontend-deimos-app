@@ -49,5 +49,6 @@ export interface ServerMetricModel {
   io_wait: number;
   uptime_seconds: number;
   status: string;  
-  timestamp: string;  
+  timestamp: string; 
+  timestampObj: Date | null | undefined;
 }

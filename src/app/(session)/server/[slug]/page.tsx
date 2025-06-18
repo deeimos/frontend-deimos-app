@@ -21,8 +21,9 @@ import { useAccumulatedMetrics } from "@/shared/hooks/metrics/useAccumulatedMetr
 import { CpuUsageChart } from "@/shared/ui/charts/CpuUsageChart";
 import { MemoryUsageChart } from "@/shared/ui/charts/MemoryUsageChart";
 import { NetworkTrafficChart } from "@/shared/ui/charts/NetworkTrafficChart";
+import { parseUTC } from "@/shared/utils/parseUTC";
 
-const MIN_METRICS_COUNT = 1;
+const MIN_METRICS_COUNT = 2;
 
 export default function ServerDetailsPage() {
   const params = useParams();
@@ -55,7 +56,7 @@ export default function ServerDetailsPage() {
                 <strong>Порт:</strong> {server.port}
               </Text>
               <Text>
-                <strong>Добавлен:</strong> {new Date(server.created_at).toLocaleString()}
+                <strong>Добавлен:</strong> {parseUTC(server.created_at).toLocaleString()}
               </Text>
               <Badge px={2} py={1} borderRadius="md">
                 <Status.Root colorPalette={server.is_monitoring_enabled ? "green" : "red"}>
@@ -72,7 +73,7 @@ export default function ServerDetailsPage() {
           </Box>
 
           {connected && metrics.length >= MIN_METRICS_COUNT ? (
-            <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={6}>
+            <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={6} mt="8">
               <CpuUsageChart data={metrics} />
               <MemoryUsageChart data={metrics} />
               <NetworkTrafficChart data={metrics} />

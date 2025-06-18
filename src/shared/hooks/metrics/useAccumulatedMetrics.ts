@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ServerMetricModel } from "@/shared/types/server.type";
 import { useMetricsStream } from "@/shared/hooks/metrics/useMetricsStream";
+import { parseUTC } from "@/shared/utils/parseUTC";
+
 
 export function useAccumulatedMetrics(serverId: string, token: string | null, limit = 20) {
   const { metric, connected } = useMetricsStream(serverId, token);
@@ -9,8 +11,9 @@ export function useAccumulatedMetrics(serverId: string, token: string | null, li
 
   useEffect(() => {
     if (metric) {
-      metricsRef.current = [...metricsRef.current, metric].slice(-limit);
-      setMetrics(metricsRef.current);
+        const metricWithDate = { ...metric, timestampObj: parseUTC(metric.timestamp) };
+        metricsRef.current = [...metricsRef.current, metricWithDate].slice(-limit);
+        setMetrics(metricsRef.current);
     }
   }, [metric, limit]);
 

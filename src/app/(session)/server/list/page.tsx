@@ -58,7 +58,7 @@ export default function ServersPage() {
                       {server.ip}:{server.port}
                     </Text>
                     <Text fontSize="sm" color="text.primary">
-                      Добавлен: {new Date(server.created_at).toLocaleString()}
+                      Добавлен: {parseUTC(server.created_at).toLocaleString()}
                     </Text>
                   </VStack>
 
