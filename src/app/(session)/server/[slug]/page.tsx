@@ -46,7 +46,6 @@ export default function ServerDetailsPage() {
           <Box p={6} borderWidth="1px" borderRadius="lg" boxShadow="md" bg="bg.primary">
             <Box mb={4} display="flex" justifyContent="space-between">
               <Heading size="lg">{server.display_name}</Heading>
-              <Button onClick={onOpen}>Редактировать</Button>
             </Box>
             <VStack align="start" spaceY={3}>
               <Text>
@@ -68,7 +67,9 @@ export default function ServerDetailsPage() {
                   <Status.Indicator /> {server.is_server_enabled ? "Есть подключение к серверу" : "Сервер недоступен"}
                 </Status.Root>
               </Badge>
+              <Button onClick={onOpen}>Редактировать</Button>
             </VStack>
+
             <AddEditServerModal isOpen={open} onClose={onClose} isEdit defaultValues={server} />
           </Box>
 

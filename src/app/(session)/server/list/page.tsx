@@ -14,7 +14,7 @@ import {
   LinkBox,
   LinkOverlay,
   Status,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useServersQuery } from "@/shared/hooks/servers/useServersListQuery";
 import AddEditModal from "@/entities/server/AddEditModal";
@@ -22,13 +22,13 @@ import NextLink from "next/link";
 import { parseUTC } from "@/shared/utils/parseUTC";
 
 export default function ServersPage() {
-  const { open, onOpen, onClose } = useDisclosure()
+  const { open, onOpen, onClose } = useDisclosure();
   const { data: servers, isLoading } = useServersQuery();
 
   return (
     <Box maxW="6xl" mx="auto" py={8} px={4}>
       <Box mb={6} display="flex" justifyContent="space-between">
-        <Heading >Список серверов</Heading>
+        <Heading>Список серверов</Heading>
         <Button onClick={onOpen}>Добавить</Button>
       </Box>
       <Stack spaceY={4}>
@@ -50,7 +50,7 @@ export default function ServersPage() {
                 bg="bg.primary"
                 _hover={{ bg: "bg.accent", cursor: "pointer" }}
               >
-                <HStack justify="space-between" align="start">
+                <Stack direction={{ base: "column", md: "row" }} justify="space-between" align="start">
                   <VStack align="start" spaceY={1}>
                     <LinkOverlay as={NextLink} href={`/server/${server.id}`}>
                       <Text fontWeight="bold">{server.display_name}</Text>
@@ -63,17 +63,21 @@ export default function ServersPage() {
                     </Text>
                   </VStack>
 
-                  <Badge px={2} py={1} borderRadius="md">
-                    <Status.Root colorPalette={server.is_monitoring_enabled ? "green" : "red"}>
-                      <Status.Indicator /> {server.is_monitoring_enabled ? "Мониторинг включен" : "Мониторинг выключен"}
-                    </Status.Root>
-                  </Badge>
-                  <Badge px={2} py={1} borderRadius="md">
-                    <Status.Root colorPalette={server.is_server_enabled ? "green" : "red"}>
-                      <Status.Indicator /> {server.is_server_enabled ? "Есть подключение к серверу" : "Сервер недоступен"}
-                    </Status.Root>
-                  </Badge>
-                </HStack>
+                  <Stack direction={{ base: "column", md: "row" }} justify="space-between" align="start">
+                    <Badge px={2} py={1} borderRadius="md">
+                      <Status.Root colorPalette={server.is_monitoring_enabled ? "green" : "red"}>
+                        <Status.Indicator />{" "}
+                        {server.is_monitoring_enabled ? "Мониторинг включен" : "Мониторинг выключен"}
+                      </Status.Root>
+                    </Badge>
+                    <Badge px={2} py={1} borderRadius="md">
+                      <Status.Root colorPalette={server.is_server_enabled ? "green" : "red"}>
+                        <Status.Indicator />{" "}
+                        {server.is_server_enabled ? "Есть подключение к серверу" : "Сервер недоступен"}
+                      </Status.Root>
+                    </Badge>
+                  </Stack>
+                </Stack>
               </LinkBox>
             ))}
       </Stack>
