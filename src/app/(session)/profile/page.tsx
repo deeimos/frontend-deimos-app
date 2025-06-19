@@ -1,15 +1,19 @@
 "use client";
 
 import { Box, Heading, Text, Stack, Skeleton } from "@chakra-ui/react";
+import { SwitchRoot, SwitchControl, SwitchLabel, SwitchHiddenInput } from "@chakra-ui/react";
 import useSessionQuery from "@/shared/hooks/useSessionQuery";
+import { useHideSensitive } from "@/shared/hooks/useHideSensitive";
+import { parseUTC } from "@/shared/utils/parseUTC";
 
 export default function UserProfilePage() {
   const { data: user, isLoading, error } = useSessionQuery();
+  const [hideSensitive, setHideSensitive] = useHideSensitive();
 
   if (isLoading) {
     return (
       <Box maxW="md" mx="auto" mt={16}>
-        <Stack  spaceY={4}>
+        <Stack spaceY={4}>
           <Skeleton height="20px" />
           <Skeleton height="20px" />
           <Skeleton height="20px" />
@@ -32,7 +36,7 @@ export default function UserProfilePage() {
       <Heading size="lg" mb={4}>
         Профиль пользователя
       </Heading>
-      <Stack  spaceY={4}>
+      <Stack spaceY={4}>
         <Text>
           <strong>Имя:</strong> {user.name}
         </Text>
@@ -40,16 +44,13 @@ export default function UserProfilePage() {
           <strong>Email:</strong> {user.email}
         </Text>
         <Text>
-          <strong>Создан:</strong>{" "}
-          {new Intl.DateTimeFormat("ru-RU", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          }).format(new Date(user.created_at))}
+          <strong>Создан:</strong> {parseUTC(user.created_at).toLocaleString()}
         </Text>
+        <SwitchRoot checked={!!hideSensitive} onCheckedChange={(e) => setHideSensitive(e.checked)}>
+          <SwitchHiddenInput />
+          <SwitchControl />
+          <SwitchLabel>Скрывать чувствительные данные</SwitchLabel>
+        </SwitchRoot>
       </Stack>
     </Box>
   );

@@ -22,6 +22,7 @@ import { CpuUsageChart } from "@/shared/ui/charts/CpuUsageChart";
 import { MemoryUsageChart } from "@/shared/ui/charts/MemoryUsageChart";
 import { NetworkTrafficChart } from "@/shared/ui/charts/NetworkTrafficChart";
 import { parseUTC } from "@/shared/utils/parseUTC";
+import HiddenText from "@/shared/ui/HiddenText";
 
 const MIN_METRICS_COUNT = 2;
 
@@ -49,10 +50,10 @@ export default function ServerDetailsPage() {
             </Box>
             <VStack align="start" spaceY={3}>
               <Text>
-                <strong>IP:</strong> {server.ip}
+                <strong>IP (DNS):</strong> <HiddenText>{server.ip}</HiddenText>
               </Text>
               <Text>
-                <strong>Порт:</strong> {server.port}
+                <strong>Порт:</strong> <HiddenText>{server.port}</HiddenText>
               </Text>
               <Text>
                 <strong>Добавлен:</strong> {parseUTC(server.created_at).toLocaleString()}

@@ -20,6 +20,7 @@ import { useServersQuery } from "@/shared/hooks/servers/useServersListQuery";
 import AddEditModal from "@/entities/server/AddEditModal";
 import NextLink from "next/link";
 import { parseUTC } from "@/shared/utils/parseUTC";
+import HiddenText from "@/shared/ui/HiddenText";
 
 export default function ServersPage() {
   const { open, onOpen, onClose } = useDisclosure();
@@ -56,7 +57,9 @@ export default function ServersPage() {
                       <Text fontWeight="bold">{server.display_name}</Text>
                     </LinkOverlay>
                     <Text fontSize="sm" color="text.primary">
-                      {server.ip}:{server.port}
+                      <HiddenText>
+                        {server.ip}:{server.port}
+                      </HiddenText>
                     </Text>
                     <Text fontSize="sm" color="text.primary">
                       Добавлен: {parseUTC(server.created_at).toLocaleString()}

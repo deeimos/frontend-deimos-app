@@ -32,7 +32,6 @@ const refresh = async (token: string) => {
     },
     body: JSON.stringify({ refresh_token: token }),
   });
-  console.log(res);
   if (!res.ok) throw new Error("Refresh failed");
   return res.json() as Promise<TokensType>;
 };
