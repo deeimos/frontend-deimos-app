@@ -21,8 +21,11 @@ import AddEditModal from "@/entities/server/AddEditModal";
 import NextLink from "next/link";
 import { parseUTC } from "@/shared/utils/parseUTC";
 import HiddenText from "@/shared/ui/HiddenText";
+import { useHideSensitive } from "@/shared/hooks/useHideSensitive";
+import { Tooltip } from "@/shared/ui/tooltip";
 
 export default function ServersPage() {
+  const [hideSensitive] = useHideSensitive();
   const { open, onOpen, onClose } = useDisclosure();
   const { data: servers, isLoading } = useServersQuery();
 
@@ -30,7 +33,17 @@ export default function ServersPage() {
     <Box maxW="6xl" mx="auto" py={8} px={4}>
       <Box mb={6} display="flex" justifyContent="space-between">
         <Heading>Список серверов</Heading>
-        <Button onClick={onOpen}>Добавить</Button>
+        <Tooltip
+          content="Чтобы добавить сервер отключите скрытие чувствительных данных в профиле"
+          disabled={!hideSensitive}
+          showArrow
+          openDelay={0}
+          closeDelay={50}
+        >
+          <Button onClick={onOpen} disabled={hideSensitive}>
+            Добавить
+          </Button>
+        </Tooltip>
       </Box>
       <Stack spaceY={4}>
         {isLoading
@@ -70,7 +83,7 @@ export default function ServersPage() {
                     <Badge px={2} py={1} borderRadius="md">
                       <Status.Root colorPalette={server.is_monitoring_enabled ? "green" : "red"}>
                         <Status.Indicator />{" "}
-                        {server.is_monitoring_enabled ? "Мониторинг включен" : "Мониторинг выключен"}
+                        {server.is_monitoring_enabled ? "Прогнозирование включено" : "Прогнозирование выключено"}
                       </Status.Root>
                     </Badge>
                     <Badge px={2} py={1} borderRadius="md">

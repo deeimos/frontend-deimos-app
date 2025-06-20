@@ -24,12 +24,12 @@ const nodeExporterConfig =
     image: prom/node-exporter:latest
     container_name: node-exporter
     ports:
-      - "9120:9100"
+      - "9123:9100"
     restart: unless-stopped
     command:
       - '--path.rootfs=/host'
     volumes:
-      - '/:/host:ro,rslave's`;
+      - '/:/host:ro,rslave'`;
 
 export default function AddEditModal({ isOpen, onClose, isEdit = false, defaultValues }: AddEditServerModalProps) {
   const [generalError, setGeneralError] = useState<string | undefined>(undefined);

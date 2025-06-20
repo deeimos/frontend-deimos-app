@@ -52,3 +52,21 @@ export interface ServerMetricModel {
   timestamp: string; 
   timestampObj: Date | null | undefined;
 }
+
+export interface ServerForecastPoint {
+  timestamp: string;
+  cpu_load: number;  // от 0 до 1 (загрузка CPU, доля)
+  memory_load: number; // от 0 до 1 (загрузка памяти, доля)
+  disk_usage: number; // в GB
+  load_avg_1: number; // 1-минутный load avg
+  load_avg_5: number; // 5-минутный load avg
+  network_rx: number;
+  network_tx: number;
+  availability_probability: number; // от 0 до 1
+  status: string;
+}
+
+export interface ServerForecast {
+  server_id: string;
+  forecasts: ServerForecastPoint[];
+}

@@ -57,6 +57,7 @@ export const LoginForm = ({ callbackUrl }: ILoginForm) => {
           <Field label="Пароль" error={errors.password?.message} isInvalid={!!errors.password}>
             <PasswordInput
               type="password"
+              autoComplete="off"
               {...register("password")}
               onChange={(e) => {
                 clearErrors(["email", "password"]);

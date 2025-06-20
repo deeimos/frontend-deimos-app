@@ -1,4 +1,4 @@
-import { EncryptedCreateServerModel, EncryptedServerModel, ServerModel, ServerFormValues } from "../../types/server.type";
+import { EncryptedCreateServerModel, EncryptedServerModel, ServerModel, ServerFormValues, ServerForecast } from "../../types/server.type";
 import getApiHeaders from "../../utils/getApiHeaders";
 import { api, backendApi } from "../api";
 
@@ -17,6 +17,9 @@ export default class ServerService {
   }
   static async Delete(id: string) {
     return backendApi.put(`/server/delete`, { params: { id }});
+  }
+  static async forecast(id: string, token?: string) {
+    return backendApi.get<ServerForecast>("/forecast",{ params: { server_id: id }, ...getApiHeaders(token) });
   }
   static async encryptServer(data: ServerFormValues) {
     return api.post<EncryptedServerModel>("/encrypt", data);
