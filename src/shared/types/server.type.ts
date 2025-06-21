@@ -48,6 +48,7 @@ export interface ServerMetricModel {
   process_count: number;
   io_wait: number;
   uptime_seconds: number;
+  temperature: number;
   status: string;  
   timestamp: string; 
   timestampObj: Date | null | undefined;
@@ -64,6 +65,7 @@ export interface ServerForecastPoint {
   network_tx: number;
   availability_probability: number; // от 0 до 1
   status: string;
+  timestampObj: Date | null | undefined;
 }
 
 export interface ServerForecast {

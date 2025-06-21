@@ -8,7 +8,6 @@ import {
   Skeleton,
   SkeletonText,
   VStack,
-  HStack,
   Badge,
   Button,
   LinkBox,
@@ -45,7 +44,7 @@ export default function ServersPage() {
           </Button>
         </Tooltip>
       </Box>
-      <Stack spaceY={4}>
+      <Stack spaceY={3}>
         {isLoading
           ? Array.from({ length: 5 }).map((_, index) => (
               <Box key={index} p={4} borderWidth="1px" borderRadius="md" boxShadow="sm">
@@ -59,7 +58,7 @@ export default function ServersPage() {
                 key={server.id}
                 p={4}
                 borderWidth="1px"
-                borderRadius="md"
+                borderRadius="xl"
                 boxShadow="sm"
                 bg="bg.primary"
                 _hover={{ bg: "bg.accent", cursor: "pointer" }}
