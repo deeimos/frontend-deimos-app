@@ -89,7 +89,6 @@ export default function GeneralInfo({ server, isLoading }: IGeneralInfo) {
         >
           <Button
             size="sm"
-            colorScheme="blue"
             variant="solid"
             onClick={onOpen}
             disabled={hideSensitive}

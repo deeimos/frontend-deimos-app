@@ -22,6 +22,7 @@ import { parseUTC } from "@/shared/utils/parseUTC";
 import HiddenText from "@/shared/ui/HiddenText";
 import { useHideSensitive } from "@/shared/hooks/useHideSensitive";
 import { Tooltip } from "@/shared/ui/tooltip";
+import { FiPlus } from "react-icons/fi";
 
 export default function ServersPage() {
   const [hideSensitive] = useHideSensitive();
@@ -39,7 +40,18 @@ export default function ServersPage() {
           openDelay={0}
           closeDelay={50}
         >
-          <Button onClick={onOpen} disabled={hideSensitive}>
+          <Button
+            size="sm"
+            variant="solid"
+            onClick={onOpen}
+            disabled={hideSensitive}
+            zIndex={1}
+            flexShrink={0}
+            display="flex"
+            alignItems="center"
+            gap={2}
+          >
+            <FiPlus size={18} />
             Добавить
           </Button>
         </Tooltip>
